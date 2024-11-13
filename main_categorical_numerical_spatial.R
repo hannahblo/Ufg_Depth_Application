@@ -6,7 +6,11 @@ library(sf)
 library(dplyr)
 library(MASS)
 library(ddalpha)
-# library(dplyr)
+
+
+# install.packages("devtools")
+# devtools::install_github(repo = "hannahblo/ddandrda", ref = "hb_04.11")
+library(ddandrda)
 
 
 
@@ -101,8 +105,8 @@ index_grid_observed <- (grid_observed_y - 1) * length(gex$vegetation$xcol) + gri
 
 # Step 3: compute ufg based on reduced ppp, full grid all (spatial, ordinal, nominal) component
 start_time <- Sys.time()
-erg_2 <- compute_ufg_grid(observed = observed,
-                          empirical_prob = empirical_prob,
+erg_2 <- ddandrda::compute_ufg_grid_cns(observed = observed,
+                          empirical_prob = as.vector(empirical_prob),
                           observed_in_grid = index_grid_observed,
                           grid_spatial = grid_spatial,
                           grid_numeric = grid_numeric,
@@ -135,7 +139,7 @@ points(ex_ppp)
 grid_numeric <- rep(1, length(grid_numeric))
 # reduced version but full grid
 start_time <- Sys.time()
-erg_3 <- compute_ufg_grid(observed,
+erg_3 <- ddandrda::compute_ufg_grid_cns(observed,
                           empirical_prob = empirical_prob,
                           observed_in_grid = index_grid_observed,
                           grid_spatial = grid_spatial,
@@ -168,7 +172,7 @@ grid_numeric <- rep(1, length(grid_numeric))
 grid_nominal <- rep("a", length(grid_nominal))
 # reduced version but full grid
 start_time <- Sys.time()
-erg_4 <- compute_ufg_grid(observed,
+erg_4 <- ddandrda::compute_ufg_grid_cns(observed,
                           empirical_prob = empirical_prob,
                           observed_in_grid = index_grid_observed,
                           grid_spatial = grid_spatial,
@@ -244,7 +248,7 @@ summary(grid_numeric[index_grid_observed])
 
 # computation
 start_time <- Sys.time()
-erg_4 <- compute_ufg_grid(observed,
+erg_4 <- ddandrda::compute_ufg_grid_cns(observed,
                           empirical_prob = empirical_prob,
                           observed_in_grid = index_grid_observed,
                           grid_spatial = grid_spatial,
