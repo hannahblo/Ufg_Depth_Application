@@ -17,8 +17,8 @@ library(ddandrda)
 # small running example
 ################################################################################
 # Step 1: get smaller subset of the point pattern
-gor <- rescale(gorillas, 1000, unitname = "km")
-gex <- lapply(gorillas.extra, rescale, s = 1000, unitname = "km")
+gor <- rescale.ppp(gorillas, 1000, unitname = "km")
+gex <- lapply(gorillas.extra, rescale.im, s = 1000, unitname = "km")
 
 # construct artificial example for demonstration
 # consider the ppp in a small quadrat
@@ -51,7 +51,7 @@ ex_ppp <- gor_primary[random_primary[c(1,2,3,4,5,6,8,10,11,12,14,15, 17)]]
 ex_ppp <- unmark(ex_ppp)
 
 # check duplications run
-ex_ppp <- superimpose(ex_ppp, c(x = ex_ppp$x[1], y = ex_ppp$y[1]))
+# ex_ppp <- superimpose(ex_ppp, c(x = ex_ppp$x[1], y = ex_ppp$y[1]))
 
 # plot(unmark(gor_primary[random_primary]), pch = 1, ces = 0.5)
 # points(gor_grassland[4], pch = 19, cex = 1, col = "darkblue")
@@ -96,6 +96,8 @@ observed <- as.data.frame(matrix(c(ex_ppp$x, ex_ppp$y), ncol = 2))
 observed_count <- observed %>% group_by_all() %>% count
 observed <- unname(as.matrix(observed_count[, c(1,2)]))
 empirical_prob <- observed_count[, 3]
+empirical_prob <- pull(empirical_prob, n)
+
 
 grid_observed_x <- unlist(lapply(observed[, 1], FUN = function(x) {which.min(abs(gex$vegetation$xcol - x))}))
 grid_observed_y <- unlist(lapply(observed[, 2], FUN = function(y) {which.min(abs(gex$vegetation$yrow - y))}))
