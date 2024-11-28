@@ -24,4 +24,4 @@ Now
 
 ## References to the data sets
 - spatial-categorical-numerical data: Baddeley, Adrian, and Rolf Turner. "Spatstat: an R package for analyzing spatial point patterns." Journal of statistical software 12 (2005): 1-42.
-- hierarchically ordered data: GESIS. Allgemeine Bevölkerungsumfrage der Sozialwissenschaften Allbus 2014. GESIS Datenarchiv, Köln. ZA5240 Datenfile Version 2.2.0, https://doi.org/10.4232/1.13141, 2018
+- hierarchically ordered data: GESIS. Allgemeine Bevölkerungsumfrage der Sozialwissenschaften Allbus 2014. GESIS Datenarchiv, Köln. ZA5240 Datenfile Version 2.2.0, https://doi.org/10.4232/1.13141, 2018 (last accessed: 28.11.2024)
