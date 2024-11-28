@@ -7,30 +7,15 @@ library(plyr)
 library(ggplot2)
 library(ggsci)
 library(scales)
-
-# install.packages("devtools")
-# devtools::install_github(repo = "hannahblo/ddandrda", ref = "hb_04.11")
 library(ddandrda)
 
-# read the Allbus 2021 data ( https://search.gesis.org/research_data/ZA5280 )
+# download the Allbus 2021 data
+# ( https://search.gesis.org/research_data/ZA5280 - last accessed Nov 2024)
 
 
-#############################
-#############################
+################################################################################
 #  needed additional functions:
-#  This function checks if a set objset of objects (given as a 0-1 vector) is
-#  a minimal generator in the sense that every proper subset of objset generates
-#  a smaller extent than objset
-#  Note that (assuming possible duplicates for all objects) for hierarchical
-#  nominal scaling the minimal generators are identical to the ufg premises
-#  which are exactly the one-element premises and
-#  the two-element premises of objects with attributes that are not exactly
-#  identical
-#############################
-#############################
-
-
-
+################################################################################
 
 # This function generates from hierarchical nominal data that are given in the
 # format like the ISCO-08 format of the Allbus data set (ZA5280_v2-0-1.sav) the
@@ -70,9 +55,9 @@ compute_hierarchical_scaling_vec <- function(values){
 
 
 
-#######################################
-## Actual Script
-#######################################
+################################################################################
+# Computation of the ufg-depth
+################################################################################
 
 
 
@@ -129,7 +114,8 @@ x_weighted[i1]
 i2 <- which(ufg_2$depths == max(ufg_2$depths))
 x_weighted[i2]
 # [1] 3341 3343 3342 3344
-# deepest points w.r.t. ufg_2 (all subcategories of category 334: Sekretariatsfachkraefte)
+# deepest points w.r.t. ufg_2
+# (all subcategories of category 334: Sekretariatsfachkraefte)
 #
 # 3341: Sekretariatsleiter
 # 3342: Sekretariatsfachkr?fte im juristischen Bereich
@@ -163,9 +149,11 @@ length(unique(ddandrda::compute_quasiconcave_hull(ufg,weighted_context)))
 
 # 4110
 #  112
-# categorial modus: 4110: Allgemeine Buerokraefte (of course identical to the ufg-1 mode of line 181)
+# categorial modus: 4110: Allgemeine Buerokraefte (of course identical to the
+# ufg-1 mode of line 181)
 
-# Top down approach: Iterative mode starting from the most coarse level followed by successively looking at more fine-grained levels
+# Top down approach: Iterative mode starting from the most coarse level followed
+# by successively looking at more fine-grained levels
 j <- seq_len(nrow(context))
 for (k in (1:4)) {
   o <- order(colSums(context[j,]), decreasing = TRUE)
@@ -173,7 +161,8 @@ for (k in (1:4)) {
 }
 colnames(context)[o[4]]
 # Median according to the top down approach
-# [1] "3343" Sekretariatsfachkraefte in Verwaltung und Geschaeftsleitung / Administrative and Executive Secretaries
+# [1] "3343" Sekretariatsfachkraefte in Verwaltung und Geschaeftsleitung
+# / Administrative and Executive Secretaries
 
 
 # smallest ufg-depth:
@@ -182,7 +171,8 @@ which(ufg == min(ufg))
 # [1] 281
 x_weighted[281]
 # [1] 6210
-# datapoint with smallest ufg-depth: 6210: Forstarbeitskraefte und verwandte Berufe
+# datapoint with smallest ufg-depth: 6210: Forstarbeitskraefte und
+# verwandte Berufe
 
 # computation of the (corresponding intents of the) upper level sets
 depth_values = sort(unique(ufg), decreasing = TRUE)
@@ -196,18 +186,25 @@ for (threshold in depth_values) {
   if (all(intent == 0)) {break}
 }
 
-#'CAUTION: Here we have still some error: The weighting of Tukeys depth is not correctly implemented'
-## will be corrected soon
-## generalized Tukey depth:
-#D_tukey <- ddandrda::compute_tukeys_depth(context,context,row_weights=weights)
-#D_tukey <- ddandrda::compute_tukeys_depth(context,weighted_context,row_weights=y_weighted)
-#table(D_tukey)
+#CAUTION: Here we have still some error: The weighting of Tukeys depth is not
+# correctly implemented'
+#
+# @Georg: will be corrected soon
+# generalized Tukey depth:
+# D_tukey <- ddandrda::compute_tukeys_depth(context, context,
+#                                          row_weights=weights)
+# D_tukey <- ddandrda::compute_tukeys_depth(context, weighted_context,
+#                                          row_weights=y_weighted)
+# table(D_tukey)
 # D_tukey
 # 0.708518518518517 0.758888888888886
 # 1913               787
-#######
 
-## Histograms:
+
+
+################################################################################
+# Histograms:
+################################################################################
 
 # function for logarithmic scaling
 f <- function(x){log(1 + 0.1*x)}
@@ -250,7 +247,7 @@ indexs <- which(x >= x_min & x <= x_max)
 df <- data.frame(x = x[indexs])
 lwd1 <- 1
 lwd2 <- 0.8
-cols <- (pal_bmj(palette = c("default"), alpha = 1))(n=6)
+cols <- (pal_bmj(palette = c("default"), alpha = 1))(n = 6)
 
 pdf("allbusplot2.pdf")
 

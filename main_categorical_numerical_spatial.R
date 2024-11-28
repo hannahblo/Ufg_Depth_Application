@@ -6,10 +6,6 @@ library(sf)
 library(dplyr)
 library(MASS)
 library(ddalpha)
-
-
-# install.packages("devtools")
-# devtools::install_github(repo = "hannahblo/ddandrda", ref = "hb_04.11")
 library(ddandrda)
 
 
@@ -385,7 +381,7 @@ divison_elevaion <- function(numeric_observed,
 
 
 
-
+# Discretizing the numeric observation -> helps interpreting the results
 max(grid_numeric[index_grid_observed])
 max(grid_numeric, na.rm = TRUE)
 length(is.na(gex$elevation$v))
@@ -486,6 +482,9 @@ summary(grid_numeric[index_grid_observed])
 # 1340    1637    1792    1781    1954    2053
 
 
+
+
+# Computation of the simplicial depth (ignoring vegetation and elevation)
 simpldd <- ddalpha::depth.simplicial(grid_spatial, grid_spatial[index_grid_observed, ])
 maxsimpldd_index <- which(simpldd == max(simpldd))
 grid_spatial[maxsimpldd_index, ] # 582.6054 677.0585
@@ -525,32 +524,4 @@ plot(gor_medians,
      ces = 0.5, main = NULL,
      leg.side = "right")
 
-
-# # Gegenbsp starshaped und quasiconcavity --> old
-# ################################################################################
-# library(MASS)
-# set.seed(837)
-# p_1 <- MASS::mvrnorm(n = 1000, mu = c(0,0), Sigma = diag(c(0.005, 0.005)))
-# p_2 <- MASS::mvrnorm(n = 1000, mu = c(0.5,1), Sigma = diag(c(0.005, 0.005)))
-# p_3 <- MASS::mvrnorm(n = 1000, mu = c(1,0), Sigma = diag(c(0.005, 0.005)))
-# # p_4 <- MASS::mvrnorm(n = 10, mu = c(1,1),  Sigma = diag(c(0.01, 0.01)))
-#
-# grid_axis <- seq(-0.5, 1.5, 0.01)
-#
-# observed <- rbind(rbind(p_1, p_2), p_3)
-# grid_spatial <- expand.grid(grid_axis, grid_axis)
-# grid_observed_x <- unlist(lapply(observed[, 1], FUN = function(x) {which.min(abs(grid_axis - x))}))
-# grid_observed_y <- unlist(lapply(observed[, 2], FUN = function(y) {which.min(abs(grid_axis - y))}))
-# index_grid_observed <- (grid_observed_y - 1) * length(grid_axis) + grid_observed_x
-#
-#
-# erg_star <- depth.simplicial(grid_spatial, observed, exact = TRUE)
-#
-# matrix_erg <- transmat(matrix(erg_star, nrow = length(grid_axis)),
-#                        from = "European", to = "Cartesian")
-# matrix_erg <- transmat(matrix_erg, from = "European", to = "spatstat")
-# im_starsh <- im(matrix_erg, xrange = c(-1,2), yrange = c(-1, 2))
-# par(mfrow = c(1,1))
-# plot(im_starsh) # heat.colors(10) oder  topo.colors(10)
-# # points(observed, pch = 20)
 
