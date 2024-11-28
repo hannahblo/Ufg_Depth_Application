@@ -1,0 +1,15 @@
+install.packages("foreign")
+install.packages("plyr")
+install.packages("ggplot2")
+install.packages("ggsci")
+install.packages("scales")
+install.packages("spatstat")
+install.packages("spatstat.data")
+install.packages("sf")
+install.packages("dplyr")
+install.packages("MASS")
+install.packages("ddalpha")
+
+
+install.packages("devtools")
+devtools::install_github(repo = "hannahblo/ddandrda", ref = "hb_04.11")
