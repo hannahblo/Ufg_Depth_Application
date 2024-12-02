@@ -188,14 +188,17 @@ for (threshold in depth_values) {
 #
 # 
 # generalized Tukey depth:
-# D_tukey <- ddandrda::compute_tukeys_depth(context, context,
-#                                          row_weights=weights)
-# D_tukey <- ddandrda::compute_tukeys_depth(context, weighted_context,
-#                                          row_weights=y_weighted)
-# table(D_tukey)
-# D_tukey
-# 0.708518518518517 0.758888888888886
-# 1913               787
+ D_tukey <- ddandrda::compute_tukeys_depth(context, context,
+                                         row_weights=weights)
+
+table(D_tukey)
+
+#D_tukey
+# 0.709984634088231 0.746869964580187 
+#             1913               787 
+
+
+
 
 
 
