@@ -109,24 +109,24 @@ ufg   <- ufg_1$depths + ufg_2$depths
 i1 <- which(ufg_1$depth == max(ufg_1$depths))
 x_weighted[i1]
 # [1] 4110
-#deepest point w.r.t. ufg_1: 4110: Allgemeine Buerokraefte
+#deepest point w.r.t. ufg_1: 4110: General Office Clerks
 
 i2 <- which(ufg_2$depths == max(ufg_2$depths))
 x_weighted[i2]
 # [1] 3341 3343 3342 3344
 # deepest points w.r.t. ufg_2
-# (all subcategories of category 334: Sekretariatsfachkraefte)
+# (all subcategories of category 334: Administrative and Specialized Secretaries)
 #
-# 3341: Sekretariatsleiter
-# 3342: Sekretariatsfachkr?fte im juristischen Bereich
-# 3343: Sekretariatsfachkr?fte in Verwaltung und Gesch?ftsleitung
-# 3344: Sekretariatsfachkr?fte im Gesundheitswesen
+# 3341: Office Supervisors
+# 3342: Legal Secretaries
+# 3343: Administrative and Executive Secretaries
+# 3344: Medical Secretaries
 
 
 i <- which(ufg == max(ufg))
 x_weighted[i]
 # [1] 3221
-#deepest point w.r.t. ufg depth: 3221: Nicht akademische Krankenpflegefachkraefte
+#deepest point w.r.t. ufg depth: 3221: Nursing Associate Professionals
 
 max(ufg)
 # maximal depth
@@ -149,7 +149,7 @@ length(unique(ddandrda::compute_quasiconcave_hull(ufg,weighted_context)))
 
 # 4110
 #  112
-# categorial modus: 4110: Allgemeine Buerokraefte (of course identical to the
+# categorial modus: 4110: General Office Clerks (of course identical to the
 # ufg-1 mode of line 181)
 
 # Top down approach: Iterative mode starting from the most coarse level followed
@@ -161,8 +161,7 @@ for (k in (1:4)) {
 }
 colnames(context)[o[4]]
 # Median according to the top down approach
-# [1] "3343" Sekretariatsfachkraefte in Verwaltung und Geschaeftsleitung
-# / Administrative and Executive Secretaries
+# [1] "3343" Administrative and Executive Secretaries
 
 
 # smallest ufg-depth:
@@ -171,8 +170,7 @@ which(ufg == min(ufg))
 # [1] 281
 x_weighted[281]
 # [1] 6210
-# datapoint with smallest ufg-depth: 6210: Forstarbeitskraefte und
-# verwandte Berufe
+# datapoint with smallest ufg-depth: 6210: Forestry and Related Workers
 
 # computation of the (corresponding intents of the) upper level sets
 depth_values = sort(unique(ufg), decreasing = TRUE)
@@ -186,10 +184,9 @@ for (threshold in depth_values) {
   if (all(intent == 0)) {break}
 }
 
-#CAUTION: Here we have still some error: The weighting of Tukeys depth is not
-# correctly implemented'
+#'
 #
-# @Georg: will be corrected soon
+# 
 # generalized Tukey depth:
 # D_tukey <- ddandrda::compute_tukeys_depth(context, context,
 #                                          row_weights=weights)
