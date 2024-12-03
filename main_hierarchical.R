@@ -20,6 +20,11 @@ library(ddandrda)
 # This function generates from hierarchical nominal data that are given in the
 # format like the ISCO-08 format of the Allbus data set (ZA5280_v2-0-1.sav) the
 # corresponding formal context
+# Details about the ISCO-08 international standard classification of occupations
+# can be found under
+# https://ilostat.ilo.org/methods/concepts-and-definitions/
+# classification-occupation/
+# (last accessed: 03.12.2024)
 compute_hierarchical_scaling_vec <- function(values){
 
   data_values <- rep("",length(values))
