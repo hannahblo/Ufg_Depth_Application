@@ -148,7 +148,7 @@ length(unique(ddandrda::compute_quasiconcave_hull(ufg,weighted_context)))
 (table(x))[which.max(table(x))]
 
 # 4110
-#  112
+#  112 ( 112 cases with category 4110)
 # categorial modus: 4110: General Office Clerks (of course identical to the
 # ufg-1 mode of line 181)
 
