@@ -12,4 +12,4 @@ install.packages("ddalpha")
 
 
 install.packages("devtools")
-devtools::install_github(repo = "hannahblo/ddandrda", ref = "hb_04.11")
+devtools::install_github(repo = "hannahblo/ddandrda")
