@@ -92,7 +92,7 @@ observed <- as.data.frame(matrix(c(ex_ppp$x, ex_ppp$y), ncol = 2))
 observed_count <- observed %>% group_by_all() %>% count
 observed <- unname(as.matrix(observed_count[, c(1,2)]))
 empirical_prob <- observed_count[, 3]
-empirical_prob <- pull(empirical_prob, n)
+empirical_prob <- empirical_prob$n
 
 
 grid_observed_x <- unlist(lapply(observed[, 1], FUN = function(x) {which.min(abs(gex$vegetation$xcol - x))}))
@@ -229,7 +229,7 @@ observed <- as.data.frame(matrix(c(gor$x, gor$y), ncol = 2))
 observed_count <- observed %>% group_by_all() %>% count
 observed <- unname(as.matrix(observed_count[, c(1,2)]))
 empirical_prob <- as.vector(observed_count[, 3])
-empirical_prob <- pull(empirical_prob, n)
+empirical_prob <- empirical_prob$n
 
 grid_observed_x <- unlist(lapply(observed[, 1], FUN = function(x) {which.min(abs(gex$vegetation$xcol - x))}))
 grid_observed_y <- unlist(lapply(observed[, 2], FUN = function(y) {which.min(abs(gex$vegetation$yrow - y))}))
@@ -439,7 +439,7 @@ legend("right", title = NULL,
 # Analysis of number of points within fine grid
 # Defining regular grid and counting number of observations within each pixel
 par(mfrow = c(1,1))
-grid_tess <- quadrats(gor, nx = 30, ny = 30)
+grid_tess <- as.owin(quadrats(gor, nx = 30, ny = 30))
 hist((as.numeric(quadratcount(gor, tess = grid_tess))))
 summary( as.factor(as.numeric(quadratcount(gor, tess = grid_tess))))
 
